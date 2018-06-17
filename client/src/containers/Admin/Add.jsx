@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import styles from './AddQuestion.css';
 import RightAnsverButton from './RightAnsverButton';
 import { connect } from 'react-redux';
-import { addQuestion } from '../../actions';
-import { TextField, Button, Select, MenuItem, FormControl, FormControlLabel, RadioGroup, Radio, FormLabel } from '@material-ui/core/';
+import { addQuestion,clearAddQuestion } from '../../actions';
+import { TextField, Button, Select, MenuItem, FormControl, FormControlLabel, RadioGroup, Radio, FormLabel, Snackbar } from '@material-ui/core/';
 
 class AddQuestion extends Component {
 
@@ -19,7 +19,12 @@ class AddQuestion extends Component {
             random: false
         },
         open: false,
-        validErr: false
+        validErr: false,
+        disable: true
+    }
+
+    componentWillUnmount() {
+        this.props.dispatch(clearAddQuestion());
     }
 
     handleAnswerChange = (idx) => (evt) => {
@@ -75,9 +80,20 @@ class AddQuestion extends Component {
 
     showNewQuestion = (question) => (
         question.post ?
-            <div className={styles.success_add}>
-                Ваш вопрос был добавлен!
-                {/* {this.redirectUser()} */}
+            <div>
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    open={question.post}
+                    autoHideDuration={3000}
+                    ContentProps={{
+                        'aria-describedby': 'message-id',
+                    }}
+                    message={<span id="message-id">Ваш вопрос был добавлен!</span>}
+                />
+                {this.redirectUser()}
             </div>
             :
             <div className={styles.err_add}>

@@ -50,6 +50,7 @@ h2 {
     left: 0;
     padding: 10px;
     right: 0;
+    text-align: center;
 }
 
 .err_add {
@@ -58,6 +59,7 @@ h2 {
     left: 0;
     padding: 10px;
     right: 0;
+    text-align: center;
 }
 
 .submit_button {

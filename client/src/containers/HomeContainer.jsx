@@ -30,7 +30,7 @@ class HomeContainer extends Component {
     )
 
     loadmore = () => {
-        let count = this.props.questions.list.length;
+        let count = this.props.questions.list.length - this.state.answeredQuestions.length;
         this.props.dispatch(getQuestions(5,count,'desc', localStorage.getItem('answeredQuestions'), this.props.questions.list));   
     }
 
@@ -38,7 +38,7 @@ class HomeContainer extends Component {
         const newAnsweredQuestions = this.state.answeredQuestions.concat([question]);
         this.setState({
             answeredQuestions: newAnsweredQuestions
-        })
+        });
         localStorage.setItem('answeredQuestions', JSON.stringify(newAnsweredQuestions));
     }
 

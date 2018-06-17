@@ -105,6 +105,16 @@ export function addQuestion(question) {
     }
 };
 
+export function clearAddQuestion() {
+
+    return {
+        type: 'CLEAR_ADD_QUESTION',
+        payload: {
+            newQuestion: ''
+        }
+    }
+};
+
 export function getUsers(){
     const request = axios.get('/api/users')
         .then(res=>res.data)

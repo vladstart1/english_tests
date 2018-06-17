@@ -25,6 +25,11 @@ export default (state={},action) =>  {
                 question: action.payload.question,
                 postDeleted: action.payload.postDeleted
             }
+        case 'CLEAR_ADD_QUESTION':
+            return {
+                ...state,
+                newQuestion: action.payload.newQuestion
+            }
         default:
             return state;
     }
