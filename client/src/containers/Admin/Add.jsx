@@ -150,11 +150,11 @@ class AddQuestion extends Component {
                                 >
                                     <MenuItem value="" disabled>Уровень сложности</MenuItem>
                                     <MenuItem value="А1">А1 - Начинающий</MenuItem>
-                                    <MenuItem value="А2">А2 - Начинающий</MenuItem>
-                                    <MenuItem value="B1">B1 - Начинающий</MenuItem>
-                                    <MenuItem value="B2">B2 - Начинающий</MenuItem>
-                                    <MenuItem value="C1">C1 - Начинающий</MenuItem>
-                                    <MenuItem value="C2">C2 - Начинающий</MenuItem>
+                                    <MenuItem value="А2">А2 - Базовый</MenuItem>
+                                    <MenuItem value="B1">B1 - Ниже среднего</MenuItem>
+                                    <MenuItem value="B2">B2 - Средний</MenuItem>
+                                    <MenuItem value="C1">C1 - Выше среднего</MenuItem>
+                                    <MenuItem value="C2">C2 - Продвинутый</MenuItem>
                                 </Select>
                             </FormControl>
                             <FormControl>
