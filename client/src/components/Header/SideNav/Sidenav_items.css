@@ -1,0 +1,24 @@
+.option {
+    font-weight: 300;
+    font-size: 18px;
+    color: #8b8c9b;
+    padding: 18px;
+}
+
+
+
+.navItem {
+    color: inherit;
+    text-decoration: none;
+}
+
+.option span {
+    color: #8b8c9b;
+    margin-right: 10px;
+}
+
+.selected > .option {
+    border-left: 3px solid #3E3B7B;
+    background-color: #F3F3F9;
+    color: #3E3B7B;
+}

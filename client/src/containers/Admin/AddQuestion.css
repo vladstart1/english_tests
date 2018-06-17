@@ -1,0 +1,66 @@
+h2 {
+    font-family: 'Roboto';
+    font-weight: 300;
+    text-align: center;
+}
+
+.root {
+    padding: 10px
+}
+
+.answer{
+    display: flex;
+    margin: 15px 0!important;
+}
+
+.answer_button {
+    margin: 0 5px!important;
+}
+
+.answer_button:last-child {
+    margin-right: 0!important;
+}
+
+.form_selects{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.form_inner_selects {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.form_element {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.form_sumit {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0;
+}
+
+.success_add {
+    position: absolute;
+    background-color: green;
+    left: 0;
+    padding: 10px;
+    right: 0;
+}
+
+.err_add {
+    position: absolute;
+    background-color: red;
+    left: 0;
+    padding: 10px;
+    right: 0;
+}
+
+.submit_button {
+    text-align: center;
+    margin: 10px 0;
+}

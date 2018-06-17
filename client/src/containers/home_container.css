@@ -1,0 +1,14 @@
+.main_wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.loadMore{
+    margin-bottom: 20px!important;
+    align-self: center;
+}
+
+.questionsOver,.gameOver {
+    text-align: center;
+    margin: 20px 0;
+}
