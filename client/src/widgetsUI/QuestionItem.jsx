@@ -2,8 +2,7 @@ import React, { PureComponent } from 'react';
 import Popup from 'react-popup';
 import './style.css';
 import { Motion, spring } from 'react-motion';
-import Button from 'material-ui/Button';
-import { FormControl, FormControlLabel, RadioGroup, Radio } from '@material-ui/core/';
+import { FormControl, FormControlLabel, RadioGroup, Radio ,Button } from '@material-ui/core/';
 
 import styles from './question_item.css';
 

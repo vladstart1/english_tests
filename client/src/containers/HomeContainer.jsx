@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import Button from 'material-ui/Button';
+import {Button} from '@material-ui/core/';
 import {Link} from 'react-router-dom';
 
 import {getQuestions} from '../actions/index';
@@ -80,7 +80,7 @@ class HomeContainer extends Component {
                             или
                         
                         <div>
-                            <Link to='/user/register'>Зарегистрироваться</Link> и добавить еще вопросы                        </div>
+                            <Link to='/user/register'>Зарегистрироваться</Link> и добавить еще вопросы</div>
                         </div>
                     :
                     <div>
