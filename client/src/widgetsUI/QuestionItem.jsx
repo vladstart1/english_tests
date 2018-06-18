@@ -5,6 +5,7 @@ import { Motion, spring } from 'react-motion';
 import { FormControl, FormControlLabel, RadioGroup, Radio ,Button } from '@material-ui/core/';
 
 import styles from './question_item.css';
+import Checkbox from './Checkbox';
 
 class QuestionItem extends PureComponent {
 
@@ -15,14 +16,49 @@ class QuestionItem extends PureComponent {
         showResult: false
     }
 
-    checkAnswer = (e) => {
+    componentWillMount = () => {
+        this.selectedCheckboxes = new Set();
+      }
+
+    toggleCheckbox = label => {
+        if (this.selectedCheckboxes.has(label)) {
+          this.selectedCheckboxes.delete(label);
+        } else {
+          this.selectedCheckboxes.add(label);
+        }
+      }
+
+    createCheckbox = label => (
+        <Checkbox
+                label={label}
+                handleCheckboxChange={this.toggleCheckbox}
+                key={label}
+            />
+      )
+
+    equalCheckboxAnswers = (rightAnswers, checkboxSet) => {
+        const checkboxArrSorted = Array.from(checkboxSet).sort();
+        const rightAnswersSorted = rightAnswers.sort();
+        return checkboxArrSorted.length===rightAnswersSorted.length && checkboxArrSorted.every(function(v,i) { return v === rightAnswersSorted[i]});
+    }
+
+    checkAnswer = e => {
         e.preventDefault();
-        if (this.state.selectedOption === '') return Popup.alert('Выберите ответ!');
+        if (this.props.question.rightAnswers.length > 1) {
+            if (this.selectedCheckboxes.size === 0) return Popup.alert('Выберите хотя бы один ответ!');
+            this.props.answeredQuestion(this.props.question._id);
+            this.setState({
+                disabled: true,
+                showResult: true
+            })
+    } else {
+            if (this.state.selectedOption === '') return Popup.alert('Выберите ответ!');
         this.props.answeredQuestion(this.props.question._id);
         this.setState({
             disabled: true,
             showResult: true
-        });
+        })
+    }
     }
 
     handleChange = (e) => {
@@ -40,8 +76,34 @@ class QuestionItem extends PureComponent {
             null
     )
 
-    showResult = () => (
-        this.state.selectedOption === this.props.question.rightAnswers[0] ?
+    showResult = () => {
+        if(this.props.question.rightAnswers.length > 1) {
+            return (
+                this.equalCheckboxAnswers(this.props.question.rightAnswers,this.selectedCheckboxes) ?
+                <Motion defaultStyle={{ x: 0 }} style={{ x: spring(1) }}>
+                    {value => <div
+                        className={styles.answer_check_right}
+                        style={{ opacity: value.x.toFixed(1) }}
+                    >
+                        <span className={styles.answer_text}>Верно!</span>
+                    </div>}
+                </Motion>
+                :
+                <Motion defaultStyle={{ x: 0 }} style={{ x: spring(1) }}>
+                    {value => <div
+                        className={styles.answer_check_wrong}
+                        style={{ opacity: value.x.toFixed(1) }}
+                    >
+                        <span className={styles.answer_text}>Верные ответы были: {this.props.question.rightAnswers.map((item,i)=>{
+                            if(i === this.props.question.rightAnswers.length-1) return `${item}`;
+                            return `${item}, `
+                        })}</span>
+                    </div>}
+                </Motion>
+            )
+        } else {
+            return (
+                this.state.selectedOption === this.props.question.rightAnswers[0] ?
             <Motion defaultStyle={{ x: 0 }} style={{ x: spring(1) }}>
                 {value => <div
                     className={styles.answer_check_right}
@@ -59,6 +121,14 @@ class QuestionItem extends PureComponent {
                     <span className={styles.answer_text}>Верный ответ был: {this.props.question.rightAnswers[0]}</span>
                 </div>}
             </Motion>
+            )
+        }
+    }
+
+    renderCheckboxes = () => (
+        this.props.question.answers ?
+            this.props.question.answers.map(this.createCheckbox)
+            :null
     )
 
     render() {
@@ -80,7 +150,12 @@ class QuestionItem extends PureComponent {
                             null
                         }
                         <form onSubmit={this.checkAnswer} className={styles.question_form} data-key={this.props.question._id}>
-                            <FormControl component="fieldset" required>
+                            { this.props.question.rightAnswers.length > 1 ? 
+                            <div>
+                            {this.renderCheckboxes()}
+                            </div>
+                            :
+                             <FormControl component="fieldset" required>
                                 <RadioGroup
                                     aria-label="answers"
                                     name="answers"
@@ -90,7 +165,7 @@ class QuestionItem extends PureComponent {
                                 >
                                     {this.renderAnswers()}
                                 </RadioGroup>
-                            </FormControl>
+                            </FormControl>}
                             <Button size="small" className={styles.question_button} type="submit" variant="raised" disabled={this.state.disabled}>Ответить</Button>
                         </form>
                     </div>

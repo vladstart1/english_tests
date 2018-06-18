@@ -116,3 +116,11 @@
     display: flex;
     flex-direction: column;
 }
+
+.checkbox {
+    margin: 15px 0;
+}
+
+.checkbox input{
+    margin-right: 10px;
+}

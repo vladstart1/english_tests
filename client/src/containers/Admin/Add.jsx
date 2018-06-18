@@ -47,13 +47,22 @@ class AddQuestion extends Component {
             }
         });
     }
-    handleRemoveAnswer = (idx) => () => {
+    handleRemoveAnswer = (idx, answer) => () => {
+        this.state.formdata.rightAnswers.includes(answer) ? 
+        this.setState({
+            formdata: {
+                ...this.state.formdata,
+                answers: this.state.formdata.answers.filter((s, sidx) => idx !== sidx),
+                rightAnswers: this.state.formdata.rightAnswers.filter(a=>a!==answer)
+            }
+        })
+        :
         this.setState({
             formdata: {
                 ...this.state.formdata,
                 answers: this.state.formdata.answers.filter((s, sidx) => idx !== sidx)
             }
-        });
+        })
     }
 
     handleAddRightAnswer = (idx) => (e) => {
@@ -151,7 +160,7 @@ class AddQuestion extends Component {
                     </div>
                     <div className={styles.form_element}>
                         {this.state.formdata.answers.map((answer, idx) => (
-                                <RightAnsverButton key={idx} answer={answer} id={idx} addRightAnswer={this.handleAddRightAnswer(idx)} handleChange={this.handleAnswerChange(idx)} removeAnswer={this.handleRemoveAnswer(idx)} />
+                                <RightAnsverButton key={idx} answer={answer} id={idx} addRightAnswer={this.handleAddRightAnswer(idx)} handleChange={this.handleAnswerChange(idx)} removeAnswer={this.handleRemoveAnswer(idx, answer)} />
                         ))}
                         <Button variant="contained" color="primary" type="button" onClick={this.handleAddAnswer}>Добавить вариант ответа</Button>
 
