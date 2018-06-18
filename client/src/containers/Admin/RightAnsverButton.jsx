@@ -22,6 +22,11 @@ class RightAnsverButton extends Component {
         })}
     }
 
+    checkRightAnswer = answer =>{
+        const ansBool = this.props.rightAnswers ? this.props.rightAnswers.includes(answer) : null;
+        return ansBool;
+    }
+
     render() {
         return (
             <div className={styles.answer}>
@@ -31,9 +36,9 @@ class RightAnsverButton extends Component {
                 label={`Ответ №${this.props.id + 1}`}
                 value={this.props.answer}
                 onChange={this.props.handleChange}
-                disabled={this.state.disabled}
+                disabled={this.state.disabled || this.checkRightAnswer(this.props.answer)}  
             />
-            <Button variant="outlined" size="small" type="button" disabled={this.state.disabled} onClick={this.handleAdd} className={styles.answer_button}>✓</Button>
+            <Button variant="outlined" size="small" type="button" disabled={this.state.disabled || this.checkRightAnswer(this.props.answer)} onClick={this.handleAdd} className={styles.answer_button}>✓</Button>
             <Button variant="outlined" size="small" type="button" onClick={this.handleRemove} className={styles.answer_button}>–</Button>
             </div>
         );
