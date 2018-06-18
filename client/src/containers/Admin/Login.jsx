@@ -62,7 +62,7 @@ class Login extends Component {
                     <div>
                     <TextField
                             type="password"
-                            label='Введите Email'
+                            label='Введите Пароль'
                             value={this.state.password}
                             fullWidth
                             onChange={this.handleInputPassword}
